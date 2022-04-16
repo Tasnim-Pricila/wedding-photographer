@@ -1,24 +1,24 @@
 [
     {
-      "id": 27,
-      "name": "Karina Russo",
-      "description": 24,
-      "price": 32,
-      "img": "https://ibb.co/GP4339g"
+      "id": 1,
+      "title": "Engagement Shoot",
+      "description": "On-location Portrait Session.Everyday clothes.50 High-res Artistically Edited Digital Images. License for Unlimited Personal Use.",
+      "price": 200,
+      "img": "https://i.ibb.co/WcqfbvY/engagement.jpg"
     },
     {
-      "id": 31,
-      "name": "Susan Cline",
-      "description": 20,
-      "price": 20,
-      "img": "https://ibb.co/JnQbx1g"
+      "id": 2,
+      "title": "Pre-Wedding Shoot",
+      "description": "On-location Pre Wedding Shoot.Personal & Styling Recommendations.40 High-res Artistically Edited Digital Images. License for Unlimited Personal Use.",
+      "price": 300,
+      "img": "https://i.ibb.co/HxLHbH0/pre-wedding.jpg"
      
     },
     {
-      "id": 35,
-      "name": "Miranda Cochran",
-      "description": 29,
-      "price": 23,
-      "img": "https://ibb.co/rsqt7z4"
+      "id": 3,
+      "title": "The Wedding Package",
+      "description": "On-location Portrait Session. Shoot online gallery.200 High-res Artistically Edited Digital Images. License for Unlimited Personal Use.",
+      "price": 600,
+      "img": " https://i.ibb.co/ZV1SFyN/weeding.jpg"
     }
-  ]
+]

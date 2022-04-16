@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 const Header = () => {
     return (
         <>
-            <div className='flex justify-between py-2.5 px-12 '>
+            <div className='flex justify-between py-2.5 px-12 sticky top-0 bg-fuchsia-100 shadow-lg'>
                 <div>
                     <h2 className='text-2xl uppercase font-bold'>Memory Makers</h2>
                     <small className='text-sm tracking-widest uppercase'>Wedding Photographer</small>
