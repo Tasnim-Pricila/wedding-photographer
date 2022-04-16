@@ -1,0 +1,24 @@
+[
+    {
+      "id": 27,
+      "name": "Karina Russo",
+      "description": 24,
+      "price": 32,
+      "img": "https://ibb.co/GP4339g"
+    },
+    {
+      "id": 31,
+      "name": "Susan Cline",
+      "description": 20,
+      "price": 20,
+      "img": "https://ibb.co/JnQbx1g"
+     
+    },
+    {
+      "id": 35,
+      "name": "Miranda Cochran",
+      "description": 29,
+      "price": 23,
+      "img": "https://ibb.co/rsqt7z4"
+    }
+  ]
