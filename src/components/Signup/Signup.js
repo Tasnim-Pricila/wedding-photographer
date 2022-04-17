@@ -105,9 +105,15 @@ const Signup = () => {
     }
 
     //Create User
-    const [createUserWithEmailAndPassword, createUser, createUserLoading, hookError] = useCreateUserWithEmailAndPassword(auth, {
-        sendEmailVerification: true,
-    });
+    const [createUserWithEmailAndPassword, createUser, createUserLoading, hookError] = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification: true});
+
+    // SignUp 
+    const handleSignUp = () => {
+        if(userInfo.confirmPassword === userInfo.password){
+            createUserWithEmailAndPassword(userInfo.email, userInfo.password);
+            // console.log(userInfo);        
+        }     
+    }
 
     // SIgn in with email and pass 
     const [signInWithEmailAndPassword, loginUser, loginloading, loginError] = useSignInWithEmailAndPassword(auth);
@@ -117,7 +123,7 @@ const Signup = () => {
         signInWithEmailAndPassword(loginUserInfo.email, loginUserInfo.password);
         console.log(loginUserInfo);
     }
-
+    // Handle Signup Error 
     useEffect(() => {
         if (hookError) {
             switch (hookError.code) {
@@ -136,7 +142,7 @@ const Signup = () => {
         }
     }, [hookError, signupError]);
 
-    // Login Error 
+    // Handle Login Error 
 
     useEffect(() => {
         if (loginError) {
@@ -160,14 +166,8 @@ const Signup = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
     }
-    // SignUp 
-    const handleSignUp = () => {
-        if(userInfo.confirmPassword === userInfo.password){
-            createUserWithEmailAndPassword(userInfo.email, userInfo.password);
-            // console.log(userInfo);        
-        }     
-    }
 
+    // Redirect from login page 
     const from = location.state?.from?.pathname || '/';
     useEffect(() => {
         if (loginUser || createUser) {
@@ -190,8 +190,7 @@ const Signup = () => {
             toast('Write Your Email...',{
                 theme:'dark'
             });
-        }
-        
+        }   
     }
 
     return (

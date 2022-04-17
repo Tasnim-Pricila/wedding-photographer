@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import auth from '../../firebase.init';
 
 const Header = () => {
@@ -17,10 +17,10 @@ const Header = () => {
     return (
         <>
             <div className='flex justify-between py-2.5 px-12 sticky top-0 bg-fuchsia-100 shadow-lg'>
-                <div>
+                <Link to='/home'>
                     <h2 className='text-2xl uppercase font-bold tracking-widest'>TASNIM PRICILA</h2>
                     <small className='text-sm tracking-widest uppercase pl-1'>Wedding Photographer</small>
-                </div>
+                </Link>
                 <div className='flex gap-5 font-medium items-center uppercase'>
                     <NavLink to='/' className={({ isActive }) => (isActive ? "text-fuchsia-700 font-bold" : "")}>Home</NavLink>
                     <NavLink to='/blogs' className={({ isActive }) => (isActive ? "text-fuchsia-700 font-bold" : "")}>Blog</NavLink>
