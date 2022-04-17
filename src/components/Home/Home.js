@@ -4,7 +4,7 @@ import Service from '../Service/Service';
 import './Home.css';
 
 const Home = () => {
-    const [services, setServices] = useServices();
+    const [services] = useServices();
     
     return (
         <>
