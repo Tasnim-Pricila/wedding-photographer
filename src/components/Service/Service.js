@@ -1,8 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Service = ({service}) => {
-    const {img, title, description, price} = service;
+    const {img, title, description, price, id} = service;
     const listedDescription = description.split("." , 4);
+
+    const navigate = useNavigate();
+    const navigateService = (id) => {
+        navigate(`/checkout/${id}`);
+    }
 
     return (
         <>
@@ -17,7 +23,7 @@ const Service = ({service}) => {
                     )
                 }
                 <p className='text-2xl my-3 font-semibold'> $ {price} </p>
-                <button className='border border-fuchsia-700 py-2 font-medium uppercase hover:bg-fuchsia-700 hover:text-white hover:transition hover:duration-500'>Add To Cart</button>
+                <button className='border border-fuchsia-700 py-2 font-medium uppercase hover:bg-fuchsia-700 hover:text-white hover:transition hover:duration-500' onClick={() => navigateService(id)}>Add  To Cart</button>
             </div>
         </>
     );

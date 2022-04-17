@@ -5,7 +5,6 @@ import './Home.css';
 
 const Home = () => {
     const [services] = useServices();
-    
     return (
         <>
             <div className='banner'>
@@ -18,6 +17,7 @@ const Home = () => {
                         services.map( service => 
                             <Service
                                 key={service.id}
+                                
                                 service={service}
                             > </Service>           
                         ) 

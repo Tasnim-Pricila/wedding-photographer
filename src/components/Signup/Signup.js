@@ -26,9 +26,12 @@ const Login = () => {
         others: ""
     })
     const [registered, setRegistered] = useState(false);
+    
     const handleRegistered = (e) => {
         setRegistered(e.target.checked);
+        console.log(e.target.checked);
     }
+ 
 
     const handleName = (e) => {
         const name = e.target.value
@@ -127,10 +130,8 @@ const Login = () => {
     const handleSignUp = () => {
         if(userInfo.confirmPassword === userInfo.password){
             createUserWithEmailAndPassword(userInfo.email, userInfo.password);
-            console.log(userInfo);
-            
-        }   
-           
+            console.log(userInfo);        
+        }     
     }
 
     const from = location.state?.from?.pathname || '/';
@@ -178,10 +179,22 @@ const Login = () => {
                         </>
 
                     }
-                    <div>
-                        <input type="checkbox" name="registered" id="registered" onChange={handleRegistered} />
-                        <label htmlFor="registered" className='text-fuchsia-700 font-semibold'> Already have an account </label>
-                    </div>
+                    <div className='flex justify-between'>
+                        
+                            <div>
+                                <input type="checkbox" name="registered" id="registered" onChange={handleRegistered} />
+                                <label htmlFor="registered" className='text-fuchsia-700 font-semibold'> Already have an account </label>
+                            </div>
+
+                            { registered &&
+                            <>
+                                <p className='text-fuchsia-700 font-semibold '>Forgot Password?</p>
+                            
+                            </>
+                        }
+                        
+                        
+                </div>
 
 
                     {/* Submit Button  */}
