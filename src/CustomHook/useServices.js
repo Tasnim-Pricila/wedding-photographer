@@ -4,10 +4,10 @@ const useServices = (url) => {
     const [services, setServices] = useState([]);
     
     useEffect( () => {
-        fetch(url)
+         fetch(url)
         .then(res => res.json())
         .then (data => setServices(data));
-    },[])
+    },[url])
 
     const [gallery, setGallery] = useState([]);
     
@@ -15,7 +15,7 @@ const useServices = (url) => {
         fetch(url)
         .then(res => res.json())
         .then (data => setGallery(data));
-    },[])
+    },[url])
 
     return [services, setServices, gallery, setGallery];
 };

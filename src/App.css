@@ -3,6 +3,7 @@
 body{
   font-family: 'Lusitana', serif;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 .App-logo {
