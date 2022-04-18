@@ -20,13 +20,13 @@ const Blog = () => {
                     <h1 className='text-2xl mb-6  text-fuchsia-600 font-bold'>
                         1.  Difference between authorization and authentication.
                     </h1>
-                    <p className='text-[16px] capitalize'>
-                    Authorization is the process of verifying what they have access to.
-                    in this process, users or persons are validated.
+                    <p className='text-[16px]'>
+                    Authorization is the process of verifying what a user have access to.
+                    In this process, users or persons are validated.
                     Transmits through an ID token.<br/> <br/>
-                    Authentication is the process of verifying who a user is.
+                    Authentication is the process of verifying a identity of the user.
                     In authentication process, the identity of users are checked for providing the access to the system.
-                    Transmits through an Access token
+                    Transmits through an Access token.
 
                     </p>
                 </div>
@@ -39,13 +39,11 @@ const Blog = () => {
                     <h1 className='text-2xl mb-6  text-fuchsia-600 font-bold'>
                         2.Why are you using firebase? What other options do you have to implement authentication?
                     </h1>
-                    <p className='text-[16px] capitalize'>
-                    Firebase is a backend provided by Google for both application development and web development. The main advantage of using Firebase is no need of physical server.
-            
-            In app development, we can use Firebase as backend, data given by end-user in our application gets stored directly to Firebase.
-            
-            In web development, some code provided by Firebase should be added with our web application's code. This enables the function of storing end-user data in firebase and there is no need of separate domain.
-            Okta Auth0, One Login, Ory, Supabase, Frontegg, etc.
+                    <p className='text-[16px]'>
+                    Firebase is a backend provided by Google for both app and web development.
+                    In app development, we can use Firebase as backend. Data given by end-user in our application is stored directly to Firebase.
+                    In web development, some code provided by Firebase should be added with our web application's code. This enables the function of storing end-user data in firebase and there is no need of separate domain. <br/><br/>
+                    Other options to implement authentication are: Okta Auth0, One Login, Ory, Supabase, Frontegg, etc.
 
                     </p>
                 </div>

@@ -23,7 +23,7 @@ const Header = () => {
                         <small className='text-sm tracking-widest uppercase pl-1'>Wedding Photographer</small>
                     </div>
                 </Link>
-                <div className='flex gap-5 font-medium items-center uppercase justify-center'>
+                <div className='flex md:gap-5 gap-3 font-medium items-center uppercase justify-center'>
                     <NavLink to='/' className={({ isActive }) => (isActive ? "text-fuchsia-700 font-bold" : "")}>Home</NavLink>
                     <NavLink to='/blogs' className={({ isActive }) => (isActive ? "text-fuchsia-700 font-bold" : "")}>Blog</NavLink>
                     <NavLink to='/about' className={({ isActive }) => (isActive ? "text-fuchsia-700 font-bold" : "")}>About Me</NavLink>
@@ -31,7 +31,7 @@ const Header = () => {
                         !user ?
                             <NavLink to='/signup' className={({ isActive }) => (isActive ? "text-fuchsia-700 font-bold" : "")}>Signup</NavLink>
                             :
-                            <button onClick={logout} className='uppercase border border-fuchsia-600 px-3 py-2 rounded-lg hover:bg-fuchsia-500 hover:text-white hover:transition hover:duration-500 font-semibold group'>
+                            <button onClick={logout} className='uppercase border border-fuchsia-600 px-2 py-2 rounded-lg hover:bg-fuchsia-500 hover:text-white hover:transition hover:duration-500 font-semibold group'>
                                 Logout &nbsp;
                                 <FontAwesomeIcon icon={faSignOutAlt} className='text-fuchsia-600 group-hover:text-white'></FontAwesomeIcon>
                             </button>

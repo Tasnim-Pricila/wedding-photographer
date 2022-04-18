@@ -9,10 +9,10 @@ const Service = ({service}) => {
     const navigateService = (id) => {
         navigate(`/checkout/${id}`);
     }
-
+   
     return (
         <>
-            <div className='flex flex-col text-center shadow-sm shadow-fuchsia-200'>
+            <div className='flex flex-col text-center shadow-sm shadow-fuchsia-200' >
                 <img src={img} alt="" className='p-2' />
                 <p className='text-xl font-semibold my-4'>{title}</p>
                 {

@@ -212,11 +212,11 @@ const Signup = () => {
                     <label htmlFor="email" className='font-semibold text-zinc-700 mt-4'> Email: </label>
                     { !registered ?
                         <>
-                            <input type="email" name="name" id="email" placeholder='Email' onChange={handleEmailChange} className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 ' />
+                            <input type="email" name="name" id="email" placeholder='Email' onChange={handleEmailChange} className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400' required />
                         </>
                         :
                         <>
-                            <input type="email" name="name" id="email" placeholder='Email' onChange={handleEmailLogin} className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 ' />
+                            <input type="email" name="name" id="email" placeholder='Email' onChange={handleEmailLogin} className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400' required />
                         </>
                     }                   
                     { !registered &&
@@ -235,12 +235,12 @@ const Signup = () => {
                     
                     { !registered ?
                         <>
-                            <input type="password" name="name" id="pass" placeholder='Password' onChange={handlePassChange} className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 ' />
+                            <input type="password" name="name" id="pass" placeholder='Password' onChange={handlePassChange} className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 ' required />
                             {signupError && <span className='error-message'> {signupError.password} </span>}
                         </>
                     :
                     <>
-                        <input type="password" name="password" id="pass" placeholder='Password'  className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 ' onChange={handlePassLogin} />
+                        <input type="password" name="password" id="pass" placeholder='Password'  className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 ' onChange={handlePassLogin} required/>
                         {error && <span className='error-message'> {error.password} </span>}
                     </>
                     
@@ -251,7 +251,7 @@ const Signup = () => {
                     {!registered &&
                         <>
                             <label htmlFor="cpass" className='font-semibold text-zinc-700 mt-4'> Confirm Password: </label>
-                            <input type="password" name="name" id="cpass" placeholder='Confirm Password' onChange={handleConfirmPassChange} className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 ' />
+                            <input type="password" name="name" id="cpass" placeholder='Confirm Password' onChange={handleConfirmPassChange} className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 ' required/>
                             {signupError && <span className='error-message'> {signupError.confirmPassword} </span>}
                         </>
 

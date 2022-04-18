@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import useServices from '../../CustomHook/useServices';
 import Gallery from '../Gallery/Gallery';
 import Service from '../Service/Service';
