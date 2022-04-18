@@ -195,8 +195,9 @@ const Signup = () => {
 
     return (
         <>
-
-            <div className='mx-auto w-1/3 my-12' >
+            <div className='mx-auto md:w-1/3 my-12 w-full px-2 md:px-0' >         
+                <p className='text-2xl text-center mb-4 font-semibold text-fuchsia-600'>  { !registered ? 'Signup' : 'Login'} </p>
+                    
                 <form onSubmit={handleSubmit} className='flex flex-col leading-10'>
                     {/* Name Field  */}
 
@@ -256,7 +257,7 @@ const Signup = () => {
                         </>
 
                     }
-                    <div className='flex justify-between'>
+                    <div className='flex justify-between md:flex-row flex-col'>
                         
                             <div>
                                 <input type="checkbox" name="registered" id="registered" onChange={handleRegistered} />

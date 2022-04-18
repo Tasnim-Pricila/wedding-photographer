@@ -8,9 +8,41 @@
 }
 .services{
     background-image: url('../../images/background.png');
-    height: 100vh;
+    min-height: 100vh;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
     background-attachment: fixed;
+}
+.image-overlay{
+    position: relative;
+}
+.image-overlay:hover::before{
+    content: "";
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.548);
+    top: 0;
+    left: 0;
+    transition: .3s linear;
+}
+.image-overlay:hover {
+    transform: scale(1.2);
+    transition-duration: 2s; 
+    cursor: pointer;
+}
+.image-overlay:hover .details{
+    bottom: 110px;
+    left: 0;
+    transition-duration: .8s; 
+    transform: scale(1);
+}
+.details{
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    right: 0;
+    /* border: 2px solid white; */
+    
 }

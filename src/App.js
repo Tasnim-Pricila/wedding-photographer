@@ -21,9 +21,9 @@ function App() {
             <Route path='/about' element={<About></About>}></Route>
             <Route path='/signup' element={<Signup></Signup>}></Route>
             <Route path='/checkout/:serviceId' element={
-            <RequireAuth>
-              <Checkout></Checkout>
-            </RequireAuth> 
+              <RequireAuth>
+                <Checkout></Checkout>
+              </RequireAuth> 
             }></Route>
             <Route path='*' element={<NotFound></NotFound>}></Route>
         </Routes>

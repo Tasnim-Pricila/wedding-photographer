@@ -4,7 +4,7 @@ import './About.css'
 const About = () => {
     return (
         <>
-        <div className='w-1/3 mx-auto my-40 border px-8 py-4  shadow-2xl rounded-3xl bg-fuchsia-100 hover:bg-fuchsia-300 hover:duration-1000'>
+        <div className='md:w-1/3 md:mx-auto my-40 border px-8 py-4 shadow-2xl rounded-3xl bg-fuchsia-100 hover:bg-fuchsia-300 hover:duration-1000 max-w-full mx-2'>
             <div className='image mx-auto shadow-2xl '>
                 </div>
                 

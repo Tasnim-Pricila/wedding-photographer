@@ -2,6 +2,7 @@
 
 body{
   font-family: 'Lusitana', serif;
+  box-sizing: border-box;
 }
 
 .App-logo {

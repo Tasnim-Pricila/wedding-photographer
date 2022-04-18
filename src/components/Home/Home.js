@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useServices from '../../CustomHook/useServices';
+import Gallery from '../Gallery/Gallery';
 import Service from '../Service/Service';
 import './Home.css';
 
+
 const Home = () => {
-    const [services] = useServices();
+    const [services] = useServices('services.json');
+    const [gallery] = useServices('gallery.json');
+
     return (
         <>
             <div className='banner'>
@@ -13,23 +17,35 @@ const Home = () => {
             <section className='services my-12 px-12 pt-8'>
                 <h2 className='text-3xl text-center uppercase tracking-wider'>My Services</h2>
                 <p className='text-base text-center text-fuchsia-700 mt-2 mb-8 font-semibold tracking-wide'>What I Love Doing...</p>
-                <div className='flex gap-10'>
+                <div className='flex gap-10 flex-wrap md:flex-nowrap'>
                     {
-                        services.map( service => 
+                        services.map(service =>
                             <Service
                                 key={service.id}
-                                
+
                                 service={service}
-                            > </Service>           
-                        ) 
+                            > </Service>
+                        )
                     }
                 </div>
-                
+
             </section>
-            {/* <div class="mb-1 text-base font-medium dark:text-white">Small</div>
-<div class="w-full bg-gray-200 rounded-full h-1.5 dark:bg-gray-700">
-  <div class="bg-gray-600 h-1.5 rounded-full dark:bg-gray-300" style="width: 45%"></div>
-</div> */}
+            <section>
+                <h2 className='text-3xl text-center uppercase tracking-wider mt-4'>Style of Wedding</h2>
+                <p className='text-base text-center text-fuchsia-700 mt-2 mb-8 font-semibold tracking-wide'>Professional Photographies...</p>
+                <div className='grid md:grid-cols-3 grid-cols-1 my-8'>
+                    {
+                        gallery.map(photos => 
+                        <Gallery
+                            key ={photos.id}
+                            photos={photos}>
+
+                        </Gallery>)
+                    }
+                    
+                </div>
+            </section>
+
         </>
     );
 };

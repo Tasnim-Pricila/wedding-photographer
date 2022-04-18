@@ -1,0 +1,40 @@
+[
+    {
+      "id": 1,
+      "title": "WEDDING IS JOY TO BEHOLD",
+      "category": "Celebrations",
+      "img": "https://i.ibb.co/sCCnb9b/banner.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Yearning for love",
+      "category": "Portrait",
+      "img": " https://i.ibb.co/sRYHMwd/banner2.jpg"
+     
+    },
+    {
+      "id": 3,
+      "title": "Platinum Ring For Engagement",
+      "category": "Engagement",
+      "img": "https://i.ibb.co/ZfpPZSk/engagement.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Bouquet of love in her heart",
+      "category": "Portrait",
+      "img": "https://i.ibb.co/12kMKmq/four.jpg"
+    },
+    {
+      "id": 5,
+      "title": "I will bring your Ring",
+      "category": "Engagement",
+      "img": "https://i.ibb.co/MgCWKtH/five.jpg"
+     
+    },
+    {
+      "id": 6,
+      "title": "Enjoying their weeding",
+      "category": "Celebration",
+      "img": "https://i.ibb.co/sHb6CpH/six.jpg"
+    }
+]
