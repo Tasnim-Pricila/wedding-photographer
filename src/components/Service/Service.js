@@ -1,3 +1,5 @@
+import { faShoppingBag } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -23,7 +25,9 @@ const Service = ({service}) => {
                     )
                 }
                 <p className='text-2xl my-3 font-semibold'> $ {price} </p>
-                <button className='border border-fuchsia-700 py-2 font-medium uppercase hover:bg-fuchsia-700 hover:text-white hover:transition hover:duration-500' onClick={() => navigateService(id)}>Checkout</button>
+                <button className='border border-fuchsia-700 py-2 font-medium uppercase hover:bg-fuchsia-700 hover:text-white hover:transition hover:duration-500' onClick={() => navigateService(id)}>Checkout &nbsp;
+                <FontAwesomeIcon icon={faShoppingBag} style={{fontSize:'16px'}}></FontAwesomeIcon>
+                </button>
             </div>
         </>
     );
