@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faGooglePlus } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faGoogle, faGooglePlus} from '@fortawesome/free-brands-svg-icons';
 import { useSignInWithFacebook, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -28,16 +28,24 @@ const SocialLogin = () => {
     
     return (
         <div>
-            <div className='text-center mt-8'>
-                    <p>
-                        or Sign In Using
-                    </p>
-                    <div className='flex gap-2 justify-center items-center mt-3'>
-                        <FontAwesomeIcon icon={faFacebook} className='text-blue-700' 
-                        style={{fontSize:'25px',cursor:'pointer'}} onClick={handleFacebookLogin} ></FontAwesomeIcon>
-                        <FontAwesomeIcon icon={faGooglePlus} className='text-orange-600'
-                        style={{fontSize:'25px',cursor:'pointer'}} onClick={handleGoogleLogin}>
-                        </FontAwesomeIcon>
+            <div className='text-center'>
+                    <div className='flex items-center justify-between gap-8 my-8'>
+                        <p className='border w-1/2 h-[0.5px] border-gray-300 bg-gray-700 rounded'></p>
+                        <p>OR</p>
+                        <p className='border w-1/2 h-[0.5px] border-gray-300 bg-gray-700'></p>
+                    </div>
+                    
+                    <div>
+                        <button onClick={handleFacebookLogin} className='border grid grid-cols-3 w-full py-2 px-4 items-center rounded-lg border-black'>
+                            <FontAwesomeIcon icon={faFacebook} className='text-blue-700' 
+                            style={{fontSize:'25px'}} ></FontAwesomeIcon>
+                            <span className='text-base col-span-2 font-semibold'>Continue with Facebook</span>
+                        </button>
+                        <button onClick={handleFacebookLogin} className='border grid grid-cols-3 w-full py-2 px-4 items-center rounded-lg border-black mt-2'>
+                            <FontAwesomeIcon icon={faGoogle} className='text-[#E4432D]' 
+                            style={{fontSize:'25px'}} ></FontAwesomeIcon>
+                            <span className='text-base col-span-2 font-semibold'>Continue with Google</span>
+                        </button>
                     </div>
                 </div>
         </div>

@@ -121,7 +121,6 @@ const Signup = () => {
     // Login Button 
     const handleLogin = () => {
         signInWithEmailAndPassword(loginUserInfo.email, loginUserInfo.password);
-        console.log(loginUserInfo);
     }
     // Handle Signup Error 
     useEffect(() => {
