@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { createUserWithEmailAndPassword, FacebookAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import auth from "../../firebase.init"
-import { useRegisterMutation } from "./authApi";
 
 const initialState = {
     id: '',
@@ -45,7 +44,7 @@ export const facebookLogin = createAsyncThunk("auth/facebookLogin",
 export const getUser = createAsyncThunk("auth/getUser", async (email) => {
     const res = await fetch(`${process.env.REACT_APP_DEV_URL}/users/${email}`)
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
 })
 

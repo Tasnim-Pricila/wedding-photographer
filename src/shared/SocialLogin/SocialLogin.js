@@ -1,21 +1,17 @@
 import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { useSignInWithFacebook, useSignInWithGoogle } from 'react-firebase-hooks/auth';
-import auth from '../../firebase.init';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { facebookLogin, googleLogin } from '../../features/auth/authSlice';
 import { useRegisterMutation } from '../../features/auth/authApi';
 
 const SocialLogin = () => {
-    // const [signInWithFacebook, facebookUser, loading, error] = useSignInWithFacebook(auth);
     const dispatch = useDispatch();
     const { email } = useSelector(state => state.auth);
     const [postUser] = useRegisterMutation();
 
     const handleFacebookLogin = () => {
-        // signInWithFacebook();
         dispatch(facebookLogin())
     }
     // console.log(email);
@@ -31,9 +27,9 @@ const SocialLogin = () => {
         // if (facebookUser) {
         //     navigate(from, { replace: true });
         // }
-        if(email){
-            postUser({email})
-        }
+        // if(email){
+        //     postUser({email})
+        // }
     }, [email, postUser])
     
     return (
