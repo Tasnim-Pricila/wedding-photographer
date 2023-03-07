@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Gallery = ({photos}) => {
+const Photos = ({photos}) => {
     const {title, category, img} = photos;
     return (
-        <>
+        <div>
             <div className='overflow-hidden'>
                 <div className='image-overlay'>
                     <img src={img} alt="banner" />
@@ -13,8 +13,8 @@ const Gallery = ({photos}) => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
-export default Gallery;
+export default Photos;

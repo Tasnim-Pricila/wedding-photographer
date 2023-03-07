@@ -1,19 +1,26 @@
 import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faGoogle, faGooglePlus} from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { useSignInWithFacebook, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { facebookLogin, googleLogin } from '../../features/auth/authSlice';
+import { useRegisterMutation } from '../../features/auth/authApi';
 
 const SocialLogin = () => {
-    const [signInWithFacebook, facebookUser, loading, error] = useSignInWithFacebook(auth);
-    const [signInWithGoogle, googleUser, loading1, error1] = useSignInWithGoogle(auth);
+    // const [signInWithFacebook, facebookUser, loading, error] = useSignInWithFacebook(auth);
+    const dispatch = useDispatch();
+    const { email } = useSelector(state => state.auth);
+    const [postUser] = useRegisterMutation();
 
     const handleFacebookLogin = () => {
-        signInWithFacebook();
+        // signInWithFacebook();
+        dispatch(facebookLogin())
     }
+    // console.log(email);
     const handleGoogleLogin = () => {
-        signInWithGoogle();
+        dispatch(googleLogin())
         
     }
     const navigate = useNavigate();
@@ -21,10 +28,13 @@ const SocialLogin = () => {
 
     const from = location.state?.from?.pathname || '/';
     useEffect(() => {
-        if (facebookUser || googleUser) {
-            navigate(from, { replace: true });
+        // if (facebookUser) {
+        //     navigate(from, { replace: true });
+        // }
+        if(email){
+            postUser({email})
         }
-    }, [facebookUser, googleUser])
+    }, [email, postUser])
     
     return (
         <div>
@@ -41,7 +51,7 @@ const SocialLogin = () => {
                             style={{fontSize:'25px'}} ></FontAwesomeIcon>
                             <span className='text-base col-span-2 font-semibold'>Continue with Facebook</span>
                         </button>
-                        <button onClick={handleFacebookLogin} className='border grid grid-cols-3 w-full py-2 px-4 items-center rounded-lg border-black mt-2'>
+                        <button onClick={handleGoogleLogin} className='border grid grid-cols-3 w-full py-2 px-4 items-center rounded-lg border-black mt-2'>
                             <FontAwesomeIcon icon={faGoogle} className='text-[#E4432D]' 
                             style={{fontSize:'25px'}} ></FontAwesomeIcon>
                             <span className='text-base col-span-2 font-semibold'>Continue with Google</span>

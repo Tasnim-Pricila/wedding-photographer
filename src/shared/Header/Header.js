@@ -2,17 +2,32 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useDispatch } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
+import { getUser, logout as logOut, setUser, toggleLoading } from '../../features/auth/authSlice';
 import auth from '../../firebase.init';
 
 const Header = () => {
 
+    const dispatch = useDispatch();
     const [user, loading, error] = useAuthState(auth);
-
+    useEffect(() => {
+        if (user) {
+            dispatch(getUser(user?.email))
+            // console.log(user);
+        }
+        else{
+            dispatch(toggleLoading())
+        }
+    })
 
     const logout = () => {
-        signOut(auth);
+        signOut(auth)
+            .then(() => {
+                dispatch(logOut())
+            })
     }
     return (
         <>
@@ -26,7 +41,7 @@ const Header = () => {
                 <div className='flex md:gap-5 gap-3 font-medium items-center uppercase justify-center'>
                     <NavLink to='/' className={({ isActive }) => (isActive ? "text-fuchsia-700 font-bold" : "")}>Home</NavLink>
                     <NavLink to='/blogs' className={({ isActive }) => (isActive ? "text-fuchsia-700 font-bold" : "")}>Blog</NavLink>
-                    <NavLink to='/about' className={({ isActive }) => (isActive ? "text-fuchsia-700 font-bold" : "")}>About Me</NavLink>
+                    {/* <NavLink to='/about' className={({ isActive }) => (isActive ? "text-fuchsia-700 font-bold" : "")}>About Me</NavLink> */}
                     {
                         !user ?
                             <NavLink to='/signup' className={({ isActive }) => (isActive ? "text-fuchsia-700 font-bold" : "")}>Signup</NavLink>

@@ -1,11 +1,12 @@
 import { useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
-import useServices from '../../CustomHook/useServices';
+import { useGetPackageByIdQuery } from '../../features/package/packageApi';
 
 const Checkout = () => {
-    const [services] = useServices('https://tasnim-pricila.github.io/json-api/services.json');
+  
     const { serviceId } = useParams();
-    const found = services.find(service => service.id == serviceId)
+    const { data } = useGetPackageByIdQuery(serviceId);
+    const found = data?.data;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -16,7 +17,6 @@ const Checkout = () => {
 
     return (
         <>
-
             <div className='md:w-1/3 w-full mx-auto my-20'>
                 <div className='flex justify-around items-center'>
                     <img src={found?.img} alt="" className='w-[100px] h-[100px] border rounded-[50%] object-cover' />
@@ -41,7 +41,7 @@ const Checkout = () => {
 
                     <textarea rows='3' cols='2' placeholder='Address Here...' className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 ' />
 
-                    <button type="submit" className='border font-medium uppercase bg-fuchsia-300 hover:bg-fuchsia-700 hover:text-white hover:transition hover:duration-500 mt-6 text-base py-2 te'> Place Order </button>
+                    <button type="submit" className='border font-medium uppercase bg-fuchsia-300 hover:bg-fuchsia-700 hover:text-white hover:transition hover:duration-500 mt-6 text-base py-2'> Place Order </button>
 
 
                 </form>

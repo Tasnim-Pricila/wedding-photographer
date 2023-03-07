@@ -1,13 +1,11 @@
 [
     {
-      "id": 1,
       "title": "Engagement Shoot",
       "description": "On-location Portrait Session.Everyday clothes.50 High-res Artistically Edited Digital Images. License for Unlimited Personal Use.",
       "price": 200,
       "img": "https://i.ibb.co/WcqfbvY/engagement.jpg"
     },
     {
-      "id": 2,
       "title": "Pre-Wedding Shoot",
       "description": "On-location Pre Wedding Shoot.Personal & Styling Recommendations.40 High-res Artistically Edited Digital Images. License for Unlimited Personal Use.",
       "price": 300,
@@ -15,7 +13,6 @@
      
     },
     {
-      "id": 3,
       "title": "The Wedding Package",
       "description": "On-location Portrait Session. Shoot online gallery.200 High-res Artistically Edited Digital Images. License for Unlimited Personal Use.",
       "price": 600,

@@ -4,16 +4,25 @@ import auth from '../../firebase.init';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SocialLogin from '../../shared/SocialLogin/SocialLogin';
 import './Signup.css';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { createUser, loginUser } from '../../features/auth/authSlice';
+import { toast } from 'react-hot-toast';
+import { useRegisterMutation } from '../../features/auth/authApi';
+import Loading from '../Loading/Loading';
 
 
 const Signup = () => {
 
     const [registered, setRegistered] = useState(false);
+    const dispatch = useDispatch();
+    const { isLoading, email, error, isError } = useSelector(state => state.auth);
+    const [postUser] = useRegisterMutation();
 
     const navigate = useNavigate();
     const location = useLocation();
+
     // Save Create User Info 
     const [userInfo, setUserInfo] = useState({
         name: "",
@@ -22,20 +31,11 @@ const Signup = () => {
         confirmPassword: "",
     })
     // save login user 
-    const [loginUserInfo, setLoginUserInfo] = useState({   
+    const [loginUserInfo, setLoginUserInfo] = useState({
         email: "",
-        password: "" , 
+        password: "",
     })
-    
-    // Handle email login 
-    const handleEmailLogin = (e) => {
-        setLoginUserInfo({...loginUserInfo, email: e.target.value});
-    }
-    // Handle password login 
-    const handlePassLogin = (e) => {
-        setLoginUserInfo({...loginUserInfo, password: e.target.value});
-    }
-    
+
     // Handle Signup Error 
     const [signupError, setSignupError] = useState({
         email: "",
@@ -43,23 +43,7 @@ const Signup = () => {
         confirmPassword: "",
         others: ""
     })
-    // Handle Signin Error 
-    const [error, setError] = useState({
-        email: "",
-        password: "",
-        others: ""
-    })
-    
-    const handleRegistered = (e) => {
-        setRegistered(e.target.checked);
-        console.log(e.target.checked);
-    }
 
-    // GEt User Name 
-    const handleName = (e) => {
-        const userName = e.target.value;
-        setUserInfo({...userInfo, name: userName});
-    }
     // Get User email 
     const handleEmailChange = (e) => {
         const email = e.target.value;
@@ -104,62 +88,18 @@ const Signup = () => {
         }
     }
 
-    //Create User
-    const [createUserWithEmailAndPassword, createUser, createUserLoading, hookError] = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification: true});
-
     // SignUp 
     const handleSignUp = () => {
-        if(userInfo.confirmPassword === userInfo.password){
-            createUserWithEmailAndPassword(userInfo.email, userInfo.password);
-            // console.log(userInfo);        
-        }     
+        if (userInfo.confirmPassword === userInfo.password) {
+            dispatch(createUser({ email: userInfo.email, password: userInfo.password }))
+            postUser(userInfo)
+        }
     }
-
-    // SIgn in with email and pass 
-    const [signInWithEmailAndPassword, loginUser, loginloading, loginError] = useSignInWithEmailAndPassword(auth);
 
     // Login Button 
     const handleLogin = () => {
-        signInWithEmailAndPassword(loginUserInfo.email, loginUserInfo.password);
+        dispatch(loginUser({ email: loginUserInfo.email, password: loginUserInfo.password }))
     }
-    // Handle Signup Error 
-    useEffect(() => {
-        if (hookError) {
-            switch (hookError.code) {
-                case "auth/email-already-in-use":
-                    setError({ ...signupError, email: "Email already exists" });
-                    break;
-                case "auth/invalid-email":
-                    setError({ ...signupError, email: "Invalid Email" });
-                    break;
-                case "auth/invalid-password":
-                    setError({ ...signupError, password: "Invalid Password" });
-                    break;
-                default:
-                    setError({ ...signupError, others: hookError.message });
-            }
-        }
-    }, [hookError, signupError]);
-
-    // Handle Login Error 
-
-    useEffect(() => {
-        if (loginError) {
-            switch (loginError.code) {
-                case "auth/user-not-found":
-                    setError({ ...error, email: "User Not Found" });
-                    break;
-                case "auth/wrong-password":
-                    setError({ ...error, password: "Wrong Password" });
-                    break;
-                case "auth/invalid-email":
-                        setError({ ...error, email: "Invalid Email" });
-                        break;
-                default:
-                    setError({ ...error, others: loginError.message });
-            }
-        }
-    }, [loginError, error]);
 
     //   Submit Button 
     const handleSubmit = (e) => {
@@ -169,122 +109,116 @@ const Signup = () => {
     // Redirect from login page 
     const from = location.state?.from?.pathname || '/';
     useEffect(() => {
-        if (loginUser || createUser) {
+        if (!isLoading && email) {
             navigate(from, { replace: true });
         }
-    }, [loginUser, createUser])
-    
+    }, [isLoading, email])
+
     // handle Reset password 
 
     const [sendPasswordResetEmail, sending, resetError] = useSendPasswordResetEmail(auth);
 
     const handleForgotPassword = async () => {
-        if(loginUserInfo.email){
+        if (loginUserInfo.email) {
             await sendPasswordResetEmail(loginUserInfo.email);
-            toast.success('Password Reset Mail Sent',{
-            theme:'dark'
+            toast.success('Password Reset Mail Sent', {
+                theme: 'dark'
             });
         }
-        else{
-            toast('Write Your Email...',{
-                theme:'dark'
+        else {
+            toast('Write Your Email...', {
+                theme: 'dark'
             });
-        }   
+        }
     }
 
     return (
-        <>
-            <div className='mx-auto md:w-1/3 my-12 w-full px-2 md:px-0' >         
-                <p className='text-2xl text-center mb-4 font-semibold text-fuchsia-600'>  { !registered ? 'Signup' : 'Login'} </p>
-                    
-                <form onSubmit={handleSubmit} className='flex flex-col leading-10'>
-                    {/* Name Field  */}
+        <div className='mx-auto md:w-1/3 my-12 w-full px-2 md:px-0' >
+            <p className='text-2xl text-center mb-4 font-semibold text-fuchsia-600'>  {!registered ? 'Signup' : 'Login'} </p>
 
-                    {!registered &&
-                        <>
-                            <label htmlFor="name" className='font-semibold text-zinc-700' > Name: </label>
-                            <input type="text" name="name" id="name" placeholder='Name' required onChange={handleName}
-                            className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 ' />
-                        </>
-                    }
+            <form onSubmit={handleSubmit} className='flex flex-col leading-10'>
+                {/* Name Field  */}
 
-                    {/* Email Field  */}
-                    <label htmlFor="email" className='font-semibold text-zinc-700 mt-4'> Email: </label>
-                    { !registered ?
-                        <>
-                            <input type="email" name="name" id="email" placeholder='Email' onChange={handleEmailChange} className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400' required />
-                        </>
-                        :
-                        <>
-                            <input type="email" name="name" id="email" placeholder='Email' onChange={handleEmailLogin} className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400' required />
-                        </>
-                    }                   
-                    { !registered &&
-                        <>
-                            {signupError && <span className='error-message'> {signupError.email} </span>}
-                        </>
-                    }
+                {!registered &&
                     <>
-                         {error && <span className='error-message'> {error.email} </span>}
+                        <label htmlFor="name" className='font-semibold text-zinc-700' > Name: </label>
+                        <input type="text" name="name" id="name" placeholder='Name' required onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
+                            className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 ' />
+                        
                     </>
-                    
-                    
+                }
 
-                    {/* Password Field  */}
-                    <label htmlFor="pass" className='font-semibold text-zinc-700 mt-4'> Password: </label>
-                    
-                    { !registered ?
-                        <>
-                            <input type="password" name="name" id="pass" placeholder='Password' onChange={handlePassChange} className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 ' required />
-                            {signupError && <span className='error-message'> {signupError.password} </span>}
-                        </>
+                {/* Email Field  */}
+                <label htmlFor="email" className='font-semibold text-zinc-700 mt-4'> Email: </label>
+                {!registered ?
+                    <>
+                        <input type="email" name="name" id="email" placeholder='Email' onChange={handleEmailChange} className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400' required />
+                    </>
                     :
                     <>
-                        <input type="password" name="password" id="pass" placeholder='Password'  className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 ' onChange={handlePassLogin} required/>
-                        {error && <span className='error-message'> {error.password} </span>}
+                        <input type="email" name="name" id="email" placeholder='Email' onChange={(e) => setLoginUserInfo({ ...loginUserInfo, email: e.target.value })}
+                            className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400' required />
                     </>
-                    
-                    }
+                }
+                {!registered &&
+                    <>
+                        {signupError && <span className='error-message'> {signupError.email} </span>}
+                    </>
+                }
 
-                    {/* Confirm Pass Field  */}
+                {/* Password Field  */}
+                <label htmlFor="pass" className='font-semibold text-zinc-700 mt-4'> Password: </label>
 
-                    {!registered &&
+                {!registered ?
+                    <>
+                        <input type="password" name="name" id="pass" placeholder='Password' onChange={handlePassChange} className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 ' required />
+                        {signupError && <span className='error-message'> {signupError.password} </span>}
+                    </>
+                    :
+                    <>
+                        <input type="password" name="password" id="pass" placeholder='Password' className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 '
+                            onChange={(e) => setLoginUserInfo({ ...loginUserInfo, password: e.target.value })} required />
+                    </>
+
+                }
+
+                {/* Confirm Pass Field  */}
+
+                {!registered &&
+                    <>
+                        <label htmlFor="cpass" className='font-semibold text-zinc-700 mt-4'> Confirm Password: </label>
+                        <input type="password" name="name" id="cpass" placeholder='Confirm Password' onChange={handleConfirmPassChange} className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 ' required />
+                        {signupError && <span className='error-message'> {signupError.confirmPassword} </span>}
+                    </>
+
+                }
+                <div className='flex justify-between md:flex-row flex-col'>
+                    <div>
+                        <input type="checkbox" name="registered" id="registered"
+                            onChange={(e) => setRegistered(e.target.checked)} />
+                        <label htmlFor="registered" className='text-fuchsia-700 font-semibold'> Already have an account </label>
+                    </div>
+
+                    {registered &&
                         <>
-                            <label htmlFor="cpass" className='font-semibold text-zinc-700 mt-4'> Confirm Password: </label>
-                            <input type="password" name="name" id="cpass" placeholder='Confirm Password' onChange={handleConfirmPassChange} className='px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 ' required/>
-                            {signupError && <span className='error-message'> {signupError.confirmPassword} </span>}
+                            <button className='text-fuchsia-700 font-semibold' onClick={handleForgotPassword}>Forgot Password?</button>
                         </>
-
                     }
-                    <div className='flex justify-between md:flex-row flex-col'>
-                        
-                            <div>
-                                <input type="checkbox" name="registered" id="registered" onChange={handleRegistered} />
-                                <label htmlFor="registered" className='text-fuchsia-700 font-semibold'> Already have an account </label>
-                            </div>
-
-                            { registered &&
-                            <>
-                                <button className='text-fuchsia-700 font-semibold' onClick={handleForgotPassword}>Forgot Password?</button>        
-                            </>
-                        }    
                 </div>
-                    {/* Submit Button  */}
-                    {
-                        !registered ?
-                            <button type="submit" className='border font-medium uppercase bg-fuchsia-300 hover:bg-fuchsia-700 hover:text-white hover:transition hover:duration-500 mt-6 text-base py-2 te' onClick={handleSignUp}> Signup </button>
-                            :
-                            <button type="submit" className='border font-medium uppercase bg-fuchsia-300 hover:bg-fuchsia-700 hover:text-white hover:transition hover:duration-500 mt-6 text-base py-2' onClick={handleLogin}> Login </button>
-                    }
-                    {signupError && <span className='error-message'> {signupError.others} </span>}
-                    {error && <span className='error-message'> {error.others} </span>}
-                </form>
-                <ToastContainer pauseOnHover/>
-                <SocialLogin></SocialLogin>
+                {/* Submit Button  */}
+                {
+                    !registered ?
+                        <button type="submit" className='border font-medium uppercase bg-fuchsia-300 hover:bg-fuchsia-700 hover:text-white hover:transition hover:duration-500 mt-6 text-base py-2 te' onClick={handleSignUp}> Signup </button>
+                        :
+                        <button type="submit" className='border font-medium uppercase bg-fuchsia-300 hover:bg-fuchsia-700 hover:text-white hover:transition hover:duration-500 mt-6 text-base py-2' onClick={handleLogin}> Login </button>
+                }
+                {signupError && <span className='error-message'> {signupError.others} </span>}
+                {isError && <span className='error-message leading-5'> {error} </span>}
+            </form>
+            {/* <ToastContainer pauseOnHover /> */}
+            <SocialLogin postUser={postUser}></SocialLogin>
 
-            </div>
-
-        </>
+        </div>
     );
 };
 
