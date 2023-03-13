@@ -14,7 +14,7 @@ import Header from './shared/Header/Header';
 
 function App() {
   return (
-    <div className=''>
+    <div>
       <Toaster/>
         <Header></Header>
         <Routes>
@@ -24,7 +24,7 @@ function App() {
             {/* <Route path='/about' element={<About></About>}></Route> */}
             <Route path='/signup' element={<Signup></Signup>}></Route>
             <Route path='/details/:id' element={<SinglePackage/>}></Route>
-            <Route path='/checkout/:serviceId' element={
+            <Route path='/checkout/:packageId' element={
               <RequireAuth>
                 <Checkout></Checkout>
               </RequireAuth> 

@@ -1,8 +1,12 @@
-import { faArrowRight, faReply, faReplyAll } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faReply, faReplyAll, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { format } from 'date-fns';
 import React, { useState } from 'react';
+import { DayPicker } from 'react-day-picker';
+import { toast } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useGetBookingsQuery } from '../../features/booking/bookingApi';
 import { useGetPackageByIdQuery } from '../../features/package/packageApi';
 import { usePostQueryMutation, useUpdateQueryMutation } from '../../features/query/queryApi';
 import Loading from '../Loading/Loading';
@@ -10,16 +14,34 @@ import Loading from '../Loading/Loading';
 const SinglePackage = () => {
 
     const { id } = useParams();
+    const navigate = useNavigate();
     const { id: userId, email } = useSelector(state => state.auth);
     const { data } = useGetPackageByIdQuery(id);
+    const { data: bookingsData } = useGetBookingsQuery();
     const [open, setOpen] = useState(false);
+    const [selected, setSelected] = useState(undefined)
     const [queryId, setQueryId] = useState('');
     const [postQuery] = usePostQueryMutation();
     const [updateQuery, { isLoading, isError }] = useUpdateQueryMutation();
     const found = data?.data;
     const listedDescription = found?.description?.split(".");
     const replyDate = new Date().toISOString();
+    const today = new Date();
+    const tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    // console.log(tomorrow)
 
+    let disabledDays = [
+        { before: today },
+        today,
+        tomorrow
+    ];
+
+    bookingsData?.data?.result?.filter(d =>
+        disabledDays.push(new Date(d?.bookingDate))
+    )
+
+    // console.log(bookingsData);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -52,21 +74,67 @@ const SinglePackage = () => {
     if (isLoading) {
         return <Loading />
     }
+    let footer = <p className='mt-2'>Please pick a day.</p>;
+    const selectedDay = selected && format(selected, 'PP');
+    if (selected) {
+        footer = <p className='mt-2'>You picked {selectedDay}.</p>;
+    }
 
+    const navigateService = () => {
+        if(selected){
+            navigate(`/checkout/${id}`, { state: { selected } });
+            window.scroll('top', 0)
+        }
+        else{
+            toast.error("Please select a day")
+        }
+    }
 
     return (
         <div className='my-10 mx-10'>
-            <img src={found?.img} alt="" className='p-2 w-1/2 h-1/2' />
-            <p className='text-xl font-semibold my-4'>{found?.title}</p>
-            {
-                listedDescription?.map(d =>
-                    <ul key={d}>
-                        <li className='leading-7'>{d}</li>
-                    </ul>
-                )
-            }
-            <p className='text-2xl my-3 font-semibold'> $ {found?.price} </p>
-            <h1 className='text-4xl mt-10 mb-6'>Question Answer Section:</h1>
+            <div className='grid grid-cols-2'>
+                <div>
+                    <img src={found?.img} alt="" className='p-2 w-1/2 h-1/2' />
+                    <p className='text-xl font-semibold my-4'>{found?.title}</p>
+                    <p className='text-2xl my-3 font-semibold'> $ {found?.price} </p>
+                    {
+                        listedDescription?.map(d =>
+                            <ul key={d}>
+                                <li className='leading-7'>{d}</li>
+                            </ul>
+                        )
+                    }
+                </div>
+                <div>
+                    <DayPicker
+                        mode='single'
+                        captionLayout='dropdown'
+                        selected={selected}
+                        onSelect={setSelected}
+                        footer={footer}
+                        disabled={disabledDays}
+
+                        modifiersStyles={{
+                            disabled: { fontSize: '85%' },
+                            today: {
+                                fontWeight: 'bold',
+                                fontSize: '140%',
+                                color: 'violet',
+                                opacity: .9
+                            }
+                        }}
+
+                    />
+                    
+                    <div className='flex justify-center w-full mt-8'>
+                        <button className='border border-fuchsia-700 py-2 px-6 font-medium uppercase hover:bg-fuchsia-700 hover:text-white hover:transition hover:duration-500'
+                            onClick={() => navigateService()}>Checkout &nbsp;
+                            <FontAwesomeIcon icon={faShoppingBag} style={{ fontSize: '16px' }}></FontAwesomeIcon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <h1 className='text-4xl mt-16 mb-6'>Question Answer Section:</h1>
             <form onSubmit={handleSubmit} className='flex justify-start items-center gap-6 flex-wrap'>
                 <input type="text" name="question" id="question" placeholder='Ask your question...' required className='px-3 py-2 bg-white border border-fuchsia-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 w-full sm:w-2/3 ' />
 
@@ -75,6 +143,7 @@ const SinglePackage = () => {
                     <FontAwesomeIcon icon={faArrowRight}></FontAwesomeIcon>
                 </button>
             </form>
+
             {
                 found?.queries?.length > 0 ?
                     found?.queries?.map(query =>
