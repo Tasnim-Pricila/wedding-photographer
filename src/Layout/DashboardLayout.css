@@ -1,0 +1,35 @@
+#sidebar {
+    transition: ease-in-out all .3s;
+    z-index: 9999;
+    /* width: 150px; */
+}
+
+#sidebar span,  #userMenu{
+    /* opacity: 0; */
+    position: absolute;
+    transition: ease-in-out all .1s;
+    display: none;
+}
+
+#sidebar:hover {
+    width: 200px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    /*shadow-2xl*/
+}
+#sidebar:hover #logo{
+    width: 200px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    /*shadow-2xl*/
+}
+#sidebar:hover span{
+    display: inline-block;
+}
+
+.avatar:hover #userMenu {
+    /* opacity: 1; */
+    display: block;
+}
+
+/* #sidebar:hover span {
+    opacity: 1;
+} */

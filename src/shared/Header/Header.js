@@ -18,7 +18,7 @@ const Header = () => {
             dispatch(getUser(user?.email))
             // console.log(user);
         }
-        else{
+        else {
             dispatch(toggleLoading())
         }
     })
@@ -46,10 +46,14 @@ const Header = () => {
                         !user ?
                             <NavLink to='/signup' className={({ isActive }) => (isActive ? "text-fuchsia-700 font-bold" : "")}>Signup</NavLink>
                             :
-                            <button onClick={logout} className='uppercase border border-fuchsia-600 px-2 py-2 rounded-lg hover:bg-fuchsia-500 hover:text-white hover:transition hover:duration-500 font-semibold group'>
-                                Logout &nbsp;
-                                <FontAwesomeIcon icon={faSignOutAlt} className='text-fuchsia-600 group-hover:text-white'></FontAwesomeIcon>
-                            </button>
+                            <>
+                                <NavLink to='/dashboard/home' className={({ isActive }) => (isActive ? "text-fuchsia-700 font-bold" : "")}>Dashboard</NavLink>
+                                <button onClick={logout} className='uppercase border border-fuchsia-600 px-2 py-2 rounded-lg hover:bg-fuchsia-500 hover:text-white hover:transition hover:duration-500 font-semibold group'>
+                                    Logout &nbsp;
+                                    <FontAwesomeIcon icon={faSignOutAlt} className='text-fuchsia-600 group-hover:text-white'></FontAwesomeIcon>
+                                </button>
+                            </>
+
                     }
                 </div>
             </div>

@@ -19,7 +19,8 @@ const SinglePackage = () => {
     const { data } = useGetPackageByIdQuery(id);
     const { data: bookingsData } = useGetBookingsQuery();
     const [open, setOpen] = useState(false);
-    const [selected, setSelected] = useState(undefined)
+    const initialDays = [];
+    const [selected, setSelected] = useState(initialDays)
     const [queryId, setQueryId] = useState('');
     const [postQuery] = usePostQueryMutation();
     const [updateQuery, { isLoading, isError }] = useUpdateQueryMutation();
@@ -38,8 +39,10 @@ const SinglePackage = () => {
     ];
 
     bookingsData?.data?.result?.filter(d =>
-        disabledDays.push(new Date(d?.bookingDate))
-    )
+        d?.bookingDate.filter(date =>
+            disabledDays.push(new Date(date))
+        ))
+    // bookingsData?.data?.result?.filter(d => d?.bookingDate.filter(d => console.log(d)))
 
     // console.log(bookingsData);
 
@@ -74,21 +77,31 @@ const SinglePackage = () => {
     if (isLoading) {
         return <Loading />
     }
-    let footer = <p className='mt-2'>Please pick a day.</p>;
-    const selectedDay = selected && format(selected, 'PP');
-    if (selected) {
-        footer = <p className='mt-2'>You picked {selectedDay}.</p>;
-    }
+    // let footer = <p className='mt-2'>Please pick one or more days.</p>;
+    // const selectedDay = selected && format(selected, 'PP');
+
+    // if (selected) {
+    //     footer = <p className='mt-2'>You picked {selectedDay}.</p>;
+
+    // }
+    const footer =
+        selected && selected.length > 0 ? (
+            <p>You selected {selected.length} day(s).</p>
+        ) : (
+            <p>Please pick one or more days.</p>
+        );
 
     const navigateService = () => {
-        if(selected){
+        if (selected) {
             navigate(`/checkout/${id}`, { state: { selected } });
             window.scroll('top', 0)
         }
-        else{
+        else {
             toast.error("Please select a day")
         }
     }
+
+    // console.log(selected);
 
     return (
         <div className='my-10 mx-10'>
@@ -107,7 +120,7 @@ const SinglePackage = () => {
                 </div>
                 <div>
                     <DayPicker
-                        mode='single'
+                        mode='multiple'
                         captionLayout='dropdown'
                         selected={selected}
                         onSelect={setSelected}
@@ -125,7 +138,7 @@ const SinglePackage = () => {
                         }}
 
                     />
-                    
+
                     <div className='flex justify-center w-full mt-8'>
                         <button className='border border-fuchsia-700 py-2 px-6 font-medium uppercase hover:bg-fuchsia-700 hover:text-white hover:transition hover:duration-500'
                             onClick={() => navigateService()}>Checkout &nbsp;
