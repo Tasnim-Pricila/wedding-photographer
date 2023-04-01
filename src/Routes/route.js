@@ -14,6 +14,7 @@ import RequireAuth from "../components/RequireAuth/RequireAuth";
 import Signup from "../components/Signup/Signup";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Main from "../Layout/Main";
+import Users from "../components/Dashboard/Admin/Users";
 
 const route = createBrowserRouter([
     {
@@ -59,6 +60,10 @@ const route = createBrowserRouter([
             {
                 path: '/dashboard/profile',
                 element: <Profile />,
+            },
+            {
+                path: '/dashboard/users',
+                element: <Users />,
             },
             {
                 path: '/dashboard/bookings',

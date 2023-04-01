@@ -1,4 +1,4 @@
-import { faCalendarCheck, faCalendarDays, faCameraRetro, faClipboardList, faHouseChimney, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarCheck, faCalendarDays, faCameraRetro, faClipboardList, faHouseChimney, faUser, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import './DashboardLayout.css';
@@ -80,6 +80,19 @@ const DashboardLayout = () => {
                             </NavLink>
                         </li>
                         <li className="my-2 md:my-0">
+                            <NavLink to='/dashboard/users'
+                                className={
+                                    ({ isActive }) =>
+                                    (isActive ? "text-fuchsia-500 font-bold block py-1 md:py-3 pl-1 no-underline hover:text-fuchsia-500"
+                                        : "block py-1 md:py-3 pl-1 no-underline hover:text-fuchsia-500")
+                                }>
+                                <FontAwesomeIcon icon={faUserFriends} className='mr-3'></FontAwesomeIcon>
+                                <span className="w-full inline-block text-sm pt-[3px]">
+                                    Users
+                                </span>
+                            </NavLink>
+                        </li>
+                        <li className="my-2 md:my-0">
                             <NavLink to='/dashboard/profile'
                                 className={
                                     ({ isActive }) =>
@@ -90,7 +103,6 @@ const DashboardLayout = () => {
                                 <span className="w-full inline-block text-sm pt-[3px]">My Profile</span>
                             </NavLink>
                         </li>
-                        
                     </ul>
                 </div>
             </div>

@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useDispatch } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
-import { getUser, logout as logOut, setUser, toggleLoading } from '../../features/auth/authSlice';
+import { getUser, logout as logOut, toggleLoading } from '../../features/auth/authSlice';
 import auth from '../../firebase.init';
 
 const Header = () => {
