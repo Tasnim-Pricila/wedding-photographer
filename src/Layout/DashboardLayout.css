@@ -24,6 +24,13 @@
 #sidebar:hover span{
     display: inline-block;
 }
+#sidebar #full-logo{
+    opacity: 0;
+}
+#sidebar:hover #full-logo{
+    opacity: 1;
+    transition-duration: 2s;
+}
 
 .avatar:hover #userMenu {
     /* opacity: 1; */

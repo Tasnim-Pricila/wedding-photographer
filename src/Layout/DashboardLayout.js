@@ -9,17 +9,17 @@ import logo from '../images/T.jpg'
 const DashboardLayout = () => {
 
     return (
-        <div className='flex min-h-screen bg-gray-100'>
-            <div className='bg-black'>
-                <div id="logo" className="h-20 w-16 border-b-1 flex items-center gap-2">
+        <div  className='flex min-h-screen bg-gray-100'>
+            <div id="sidebar" className='h-screen w-16 menu bg-black text-slate-200 
+                fixed shadow-2xl'>
+                <div id="logo" className="h-20 w-16 border-b-1 flex gap-1">
                     <img src={logo} alt="" className='h-full' />
-                    <div id="full-logo" className='text-fuchsia-500'>
+                    <div id="full-logo" className='text-fuchsia-500 pt-3'>
                         <h6 className='text-2xl uppercase font-bold tracking-widest'>TASNIM PRICILA</h6>
                     </div>
                 </div>
-                <div id="sidebar" className="min-h-[89vh] w-16 menu bg-black text-slate-200 
-                px-4 flex items-center sticky shadow">
-                    <ul>
+                <div className="h-[89vh]">
+                    <ul className="flex flex-col justify-center h-full px-4">
                         <li className="my-2 md:my-0">
                             <NavLink to='/dashboard/home'
                                 className={
@@ -123,7 +123,7 @@ const DashboardLayout = () => {
                         </div>
                     </div>
                 </div>
-                <div className='p-6'>
+                <div className='p-6 ml-16'>
                     <Outlet></Outlet>
                 </div>
             </div>
