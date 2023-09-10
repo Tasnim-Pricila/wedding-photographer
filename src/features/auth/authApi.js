@@ -23,7 +23,12 @@ const authApi = apiSlice.injectEndpoints({
                 url: `/user/${id}`,
             }),
         }),
+        getAllUsers: builder.query({
+            query: () => ({
+                url: `/users`,
+            }),
+        }),
     })
 });
 
-export const { useRegisterMutation, useGetUserByIdQuery } = authApi;
+export const { useRegisterMutation, useGetUserByIdQuery, useGetAllUsersQuery } = authApi;

@@ -9,7 +9,7 @@ import Profile from "../components/Dashboard/Common/Profile";
 import Bookings from "../components/Dashboard/User/Bookings";
 import Home from "../components/Home/Home";
 import SinglePackage from "../components/Home/SinglePackage";
-import NotFound from "../components/NotFound/NotFound";
+// import NotFound from "../components/NotFound/NotFound";
 import RequireAuth from "../components/RequireAuth/RequireAuth";
 import Signup from "../components/Signup/Signup";
 import DashboardLayout from "../Layout/DashboardLayout";

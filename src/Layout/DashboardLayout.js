@@ -5,9 +5,19 @@ import './DashboardLayout.css';
 import avatar from "../images/five.jpg"
 import { NavLink, Outlet } from 'react-router-dom';
 import logo from '../images/T.jpg'
+import { signOut } from 'firebase/auth';
+import auth from '../firebase.init';
+import { useDispatch } from 'react-redux';
+import { logout as logOut } from '../features/auth/authSlice';
 
 const DashboardLayout = () => {
-
+    const dispatch = useDispatch();
+    const logout = () => {
+        signOut(auth)
+            .then(() => {
+                dispatch(logOut())
+            })
+    }
     return (
         <div className='flex min-h-screen bg-gray-100'>
             <div id="sidebar" className='h-screen w-16 menu bg-black text-slate-200 
@@ -118,7 +128,7 @@ const DashboardLayout = () => {
                                 <li>
                                     <hr class="border-t mx-2 border-gray-400" />
                                 </li>
-                                <li><a href="/" class="px-4 py-2 block text-gray-900 hover:bg-fuchsia-500 hover:text-white no-underline hover:no-underline">Logout</a></li>
+                                <li onClick={logout}><a href="/" class="px-4 py-2 block text-gray-900 hover:bg-fuchsia-500 hover:text-white no-underline hover:no-underline">Logout</a></li>
                             </ul>
                         </div>
                     </div>

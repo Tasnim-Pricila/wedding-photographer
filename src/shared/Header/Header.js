@@ -12,7 +12,7 @@ import auth from '../../firebase.init';
 const Header = () => {
 
     const dispatch = useDispatch();
-    const [user, loading, error] = useAuthState(auth);
+    const [user] = useAuthState(auth);
     useEffect(() => {
         if (user) {
             dispatch(getUser(user?.email))
@@ -29,6 +29,7 @@ const Header = () => {
                 dispatch(logOut())
             })
     }
+    console.log(user);
     return (
         <>
             <div className='flex flex-col md:flex-row justify-between py-2.5 md:px-12 md:sticky md:top-0 bg-fuchsia-100 shadow-lg z-40 gap-3 md:gap-0 max-w-full'>
