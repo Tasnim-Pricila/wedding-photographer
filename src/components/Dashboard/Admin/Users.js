@@ -6,7 +6,7 @@ import moment from "moment";
 
 const Users = () => {
   const { data: users } = useGetAllUsersQuery();
-  console.log(users);
+  //   console.log(users);
   return (
     <>
       {users?.data?.result.map((user) => (
@@ -15,8 +15,10 @@ const Users = () => {
             <div class="m-5 text-2xl whitespace-nowrap">Image</div>
             <div class="border-l border-black m-4 my-6 pl-6 flex flex-col justify-center content-center leading-normal">
               <div className="flex gap-4 items-center border mb-2">
-                <div class="text-gray-900 font-bold text-xl">{user?.name}Tasnim Tanzim</div>
-                <p className="bg-slate-300 py-1 px-4 rounded-3xl">{user?.status}</p>
+                <div class="text-gray-900 font-bold text-xl">{user?.name}</div>
+                <p className="bg-slate-300 py-1 px-4 rounded-3xl">
+                  {user?.status}
+                </p>
               </div>
 
               <p class="text-gray-700">
@@ -28,7 +30,9 @@ const Users = () => {
               </p>
             </div>
           </div>
-          <div className="flex-1 text-right">{moment(user?.createdAt).format("Do MMM YYYY")}</div>
+          <div className="flex-1 text-right">
+            {moment(user?.createdAt).format("Do MMM YYYY")}
+          </div>
         </div>
       ))}
     </>

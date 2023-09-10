@@ -9,9 +9,8 @@ const Bookings = () => {
 
     const { id: userId, email } = useSelector(state => state.auth);
     const { data } = useGetBookingByUserIdQuery(userId);
-    console.log(userId, email);
-
-    console.log(data?.data);
+    // console.log(userId, email);
+    // console.log(data?.data);
     return (
         <div className='grid grid-cols-4 gap-4'>
             {
