@@ -20,7 +20,7 @@ const route = createBrowserRouter([
     {
         path: '/',
         element: <Main />,
-        errorElement: <NotFound />,
+        // errorElement: <NotFound />,
         children: [
             {
                 path: '/',
@@ -51,7 +51,7 @@ const route = createBrowserRouter([
     {
         path: '/dashboard',
         element: <DashboardLayout/>,
-        errorElement: <NotFound/>,
+        // errorElement: <NotFound/>,
         children: [
             {
                 path: '/dashboard/home',

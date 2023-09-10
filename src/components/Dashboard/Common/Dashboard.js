@@ -65,7 +65,7 @@ const Dashboard = () => {
     });
 
     return (
-        <div className="grid grid-cols-2 items-center gap-12 ">
+        <div className="grid grid-cols-2 items-center gap-24 ">
             <div>
                 <Pie
                     data={chartData}

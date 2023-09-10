@@ -26,8 +26,13 @@ const bookingApi = apiSlice.injectEndpoints({
                 url: `/booking/package/${packageId}`,
             }),
         }),
+        getBookingByUserId: builder.query({
+            query: (userId) => ({
+                url: `/booking/user/${userId}`,
+            }),
+        }),
         updateBooking: builder.mutation({
-            query: ({id, data}) => ({
+            query: ({ id, data }) => ({
                 method: 'PATCH',
                 url: `/booking/${id}`,
                 body: data
@@ -36,4 +41,4 @@ const bookingApi = apiSlice.injectEndpoints({
     })
 })
 
-export const { useCreateBookingMutation, useGetBookingByIdQuery, useGetBookingsQuery, useGetBookingByPackageIdQuery, useUpdateBookingMutation } = bookingApi;
+export const { useCreateBookingMutation, useGetBookingByIdQuery, useGetBookingsQuery, useGetBookingByPackageIdQuery, useUpdateBookingMutation, useGetBookingByUserIdQuery } = bookingApi;

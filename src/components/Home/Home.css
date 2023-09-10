@@ -35,8 +35,8 @@
     cursor: pointer;
 }
 .image-overlay:hover .details{
-    bottom: 40%;
-    left: 0;
+    bottom: 0;
+    top: 0;
     transition-duration: .5s; 
     transform: scale(1);
 }

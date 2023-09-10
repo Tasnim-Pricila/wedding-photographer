@@ -9,7 +9,7 @@ import logo from '../images/T.jpg'
 const DashboardLayout = () => {
 
     return (
-        <div  className='flex min-h-screen bg-gray-100'>
+        <div className='flex min-h-screen bg-gray-100'>
             <div id="sidebar" className='h-screen w-16 menu bg-black text-slate-200 
                 fixed shadow-2xl'>
                 <div id="logo" className="h-20 w-16 border-b-1 flex gap-1">

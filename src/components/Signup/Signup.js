@@ -111,7 +111,7 @@ const Signup = () => {
 
     // handle Reset password 
 
-    const [sendPasswordResetEmail, sending, resetError] = useSendPasswordResetEmail(auth);
+    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
 
     const handleForgotPassword = async () => {
         if (loginUserInfo.email) {
