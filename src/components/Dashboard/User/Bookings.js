@@ -10,10 +10,9 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 
 const Bookings = () => {
-  const { id: userId, email } = useSelector((state) => state.auth);
+  const { id: userId } = useSelector((state) => state.auth);
   const { data } = useGetBookingByUserIdQuery(userId);
-  // console.log(userId, email);
-  // console.log(data?.data);
+  
   return (
     <div className="grid grid-cols-4 gap-4">
       {data?.data?.map((data) => (
@@ -44,9 +43,11 @@ const Bookings = () => {
           <div class="pt-6">
             <div class="font-bold text-xl mb-2">{data?.packageId?.title}</div>
             <p class="text-gray-700 text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptatibus quia, nulla! Maiores et perferendis eaque,
-              exercitationem praesentium nihil.
+              {data?.packageId?.description?.split(".").map((d) => (
+                <ul key={d}>
+                  <li className="leading-7">{d}</li>
+                </ul>
+              ))}
             </p>
           </div>
           <p class="text-gray-700 pt-4">

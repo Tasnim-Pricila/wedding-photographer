@@ -34,7 +34,7 @@ const UpcomingEvents = () => {
       <div className="grid grid-cols-4 gap-4">
         {upcoming &&
           upcoming?.map((data) => (
-            <div class="rounded overflow-hidden shadow-lg px-4 py-4 bg-slate-300 pb-10 border-b-8 border-t-2 border-l-2 border-r-2 border-b-purple-500 hover:border-t-2 hover:border-l-2 hover:border-r-2 hover:border-purple-500 hover:duration-1000">
+            <div key={data._id} className="rounded overflow-hidden shadow-lg px-4 py-4 bg-slate-300 pb-10 border-b-8 border-t-2 border-l-2 border-r-2 border-b-purple-500 hover:border-t-2 hover:border-l-2 hover:border-r-2 hover:border-purple-500 hover:duration-1000">
               <div className="flex justify-between items-center gap-4 h-20">
                 <div className="text-2xl font-semibold text-purple-500">
                   {data?.bookingDate.map((date, i) => (
@@ -58,11 +58,11 @@ const UpcomingEvents = () => {
                   ></FontAwesomeIcon>
                 </div>
               </div>
-              <div class="pt-6">
-                <div class="font-bold text-xl mb-2">
+              <div className="pt-6">
+                <div className="font-bold text-xl mb-2">
                   {data?.packageId?.title}
                 </div>
-                <p class="text-gray-700 text-base">
+                <p className="text-gray-700 text-base">
                   {data?.packageId?.description?.split(".").map((d) => (
                     <ul key={d}>
                       <li className="leading-7">{d}</li>
@@ -70,7 +70,7 @@ const UpcomingEvents = () => {
                   ))}
                 </p>
               </div>
-              <p class="text-gray-700 pt-4">
+              <p className="text-gray-700 pt-4">
                 <FontAwesomeIcon
                   icon={faLocationDot}
                   className="mr-2"

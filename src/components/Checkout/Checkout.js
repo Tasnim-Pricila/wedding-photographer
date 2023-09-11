@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { useCreateBookingMutation } from "../../features/booking/bookingApi";
@@ -12,25 +12,24 @@ const Checkout = () => {
     useGetPackageByIdQuery(packageId);
   const [createBooking, { isLoading, isError, isSuccess, error }] =
     useCreateBookingMutation();
-  const { id: userId, email } = useSelector((state) => state.auth);
+  const { id: userId, email, name } = useSelector((state) => state.auth);
   const found = data?.data;
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(userId, email);
 
   useEffect(() => {
     if (isSuccess) {
       toast.success("Booking Successfull!!!.Thank You For The Booking", {
         theme: "dark",
       });
-      navigate("/");
+      navigate("/dashboard/bookings");
     }
     if (isError) {
       toast.success(error?.data?.error, {
         theme: "dark",
       });
     }
-  }, [isSuccess, isError, error]);
+  }, [isSuccess, isError, error, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,7 +37,6 @@ const Checkout = () => {
       packageId,
       bookingDate: location.state.selected,
       userId,
-      name: e.target.name.value,
       phone: e.target.phone.value,
       address: e.target.address.value,
     };
@@ -77,6 +75,8 @@ const Checkout = () => {
             name="name"
             id="name"
             placeholder="Name"
+            value={name}
+            disabled
             required
             className="px-3 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-fuchsia-400 mb-3"
           />

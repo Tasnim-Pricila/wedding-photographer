@@ -37,7 +37,7 @@ const DashboardLayout = () => {
         id="sidebar"
         className="h-screen w-[68px] menu bg-black text-slate-200 fixed shadow-2xl"
       >
-        <div id="logo" className="h-20 w-full border-b-1 flex gap-1">
+        <div id="logo" onClick={() => navigate('/')} className="h-20 w-full border-b-1 flex gap-1 cursor-pointer">
           <img src={logo} alt="" className="h-full" />
           <div id="full-logo" className="text-fuchsia-500 pt-3">
             <h6 className="text-2xl uppercase font-bold tracking-widest">
@@ -162,7 +162,7 @@ const DashboardLayout = () => {
               </li>
             )}
 
-            <li className="my-2 md:my-0">
+            {/* <li className="my-2 md:my-0">
               <NavLink
                 to="/dashboard/profile"
                 className={({ isActive }) =>
@@ -177,7 +177,7 @@ const DashboardLayout = () => {
                 ></FontAwesomeIcon>
                 <span className="w-full text-sm pt-[3px]">My Profile</span>
               </NavLink>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
