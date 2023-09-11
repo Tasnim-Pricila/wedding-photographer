@@ -42,6 +42,15 @@ const Banner = () => {
     }, app);
     return () => ctx.revert();
   }, []);
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      window.scrollTo({
+        top: section.offsetTop,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   return (
     <div className="banner" ref={app}>
@@ -52,15 +61,13 @@ const Banner = () => {
         <p className="text-2xl capitalize md:tracking-widest tracking-wide smallTitle">
           Priceless Event of your life
         </p>
-        <a href="#gallery">
-          <button className="border border-fuchsia-700 my-6 py-2 px-6 font-medium uppercase hover:bg-fuchsia-700 hover:text-white hover:transition hover:duration-500 tracking-widest Button">
+          <button onClick={() => scrollToSection('gallery')} className="border border-fuchsia-700 my-6 py-2 px-6 font-medium uppercase hover:bg-fuchsia-700 hover:text-white hover:transition hover:duration-500 tracking-widest Button">
             See Photos &nbsp;
             <FontAwesomeIcon
               icon={faCamera}
               style={{ fontSize: "20px" }}
             ></FontAwesomeIcon>
           </button>
-        </a>
       </div>
     </div>
   );

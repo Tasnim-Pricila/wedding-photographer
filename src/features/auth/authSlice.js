@@ -14,14 +14,12 @@ const initialState = {
 export const createUser = createAsyncThunk("auth/createUser",
     async ({ email, password }) => {
         const data = await createUserWithEmailAndPassword(auth, email, password)
-        // console.log(data);
         return data.user.email;
     })
 
 export const loginUser = createAsyncThunk("auth/loginUser",
     async ({ email, password }) => {
         const data = await signInWithEmailAndPassword(auth, email, password)
-        // console.log(data);
         return data.user.email;
     })
 
@@ -141,6 +139,7 @@ const authSlice = createSlice({
             .addCase(getUser.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.email = action.payload.data.email;
+                state.role = action.payload.data.role;
                 state.id = action.payload.data._id;
                 state.isError = false;
                 state.error = '';

@@ -27,7 +27,7 @@ const UpcomingEvents = () => {
     setUpcoming(events);
   }, [data]);
 
-  // console.log(upcoming);
+  console.log(upcoming);
 
   return (
     <>
@@ -63,9 +63,11 @@ const UpcomingEvents = () => {
                   {data?.packageId?.title}
                 </div>
                 <p class="text-gray-700 text-base">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Voluptatibus quia, nulla! Maiores et perferendis eaque,
-                  exercitationem praesentium nihil.
+                  {data?.packageId?.description?.split(".").map((d) => (
+                    <ul key={d}>
+                      <li className="leading-7">{d}</li>
+                    </ul>
+                  ))}
                 </p>
               </div>
               <p class="text-gray-700 pt-4">

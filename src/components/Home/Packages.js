@@ -12,18 +12,18 @@ const Packages = () => {
   gsap.registerPlugin(ScrollTrigger);
 
   useEffect(() => {
-    gsap.set(".packages", {
+    gsap.set(cardRef.current, {
       opacity: 0,
     });
     ScrollTrigger.create({
-      trigger: ".services",
+      trigger: app.current,
       // markers: true,
       start: "top 60%",
       end: "center 10%",
       scrub: 1,
       onEnter: () => {
         gsap.fromTo(
-          ".packages",
+          cardRef.current,
           {
             y: 100,
             opacity: 0,
@@ -36,21 +36,21 @@ const Packages = () => {
         );
       },
       onLeave: () => {
-        gsap.to(".packages", {
+        gsap.to(cardRef.current, {
           y: -100,
           duration: 1,
           opacity: 0,
         });
       },
       onEnterBack: () => {
-        gsap.to(".packages", {
+        gsap.to(cardRef.current, {
           y: 0,
           duration: 1,
           opacity: 1,
         });
       },
       onLeaveBack: () => {
-        gsap.to(".packages", {
+        gsap.to(cardRef.current, {
           y: 100,
           duration: 1,
           opacity: 0,
@@ -61,7 +61,7 @@ const Packages = () => {
 
   return (
     <div ref={app}>
-      <div className="services my-12 px-12 pt-8 border border-red-500">
+      <div className="services my-12 px-12 pt-8">
         <h2 className="text-3xl text-center uppercase tracking-wider">
           My Services
         </h2>

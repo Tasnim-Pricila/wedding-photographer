@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import Blog from "../components/Blog/Blog";
+// import Blog from "../components/Blog/Blog";
 import Checkout from "../components/Checkout/Checkout";
 import ScheduleList from "../components/Dashboard/Admin/ScheduleList";
-import UpcomingEvents from "../components/Dashboard/Admin/UpcomingEvents";
+import UpcomingEvents from "../components/Dashboard/Common/UpcomingEvents";
 import Calendar from "../components/Dashboard/Common/Calendar";
 import Dashboard from "../components/Dashboard/Common/Dashboard";
 import Profile from "../components/Dashboard/Common/Profile";
@@ -30,10 +30,10 @@ const route = createBrowserRouter([
                 path: '/home',
                 element: <Home />
             },
-            {
-                path: '/blogs',
-                element: <Blog />
-            },
+            // {
+            //     path: '/blogs',
+            //     element: <Blog />
+            // },
             {
                 path: '/signup',
                 element: <Signup />

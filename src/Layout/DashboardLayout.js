@@ -10,27 +10,32 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import "./DashboardLayout.css";
-import avatar from "../images/five.jpg";
-import { NavLink, Outlet } from "react-router-dom";
+import avatar from "../images/avatar.png";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import logo from "../images/T.jpg";
 import { signOut } from "firebase/auth";
 import auth from "../firebase.init";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout as logOut } from "../features/auth/authSlice";
 
 const DashboardLayout = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { role } = useSelector((state) => state.auth);
+
   const logout = () => {
     signOut(auth).then(() => {
       dispatch(logOut());
     });
+    navigate('/signup')
   };
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       <div
         id="sidebar"
-        className="h-screen w-[68px] menu bg-black text-slate-200 
-                fixed shadow-2xl"
+        className="h-screen w-[68px] menu bg-black text-slate-200 fixed shadow-2xl"
       >
         <div id="logo" className="h-20 w-full border-b-1 flex gap-1">
           <img src={logo} alt="" className="h-full" />
@@ -59,22 +64,30 @@ const DashboardLayout = () => {
                 <span className="w-full text-sm pt-[3px]"> Dashboard</span>
               </NavLink>
             </li>
-            <li className="my-2 md:my-0">
-              <NavLink
-                to="/dashboard/schedule-list"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-fuchsia-500 font-bold flex py-1 md:py-3 pl-1 no-underline hover:text-fuchsia-500 items-center"
-                    : "flex py-1 md:py-3 pl-1 no-underline hover:text-fuchsia-500 items-center"
-                }
-              >
-                <FontAwesomeIcon
-                  icon={faClipboardList}
-                  className="mr-3"
-                ></FontAwesomeIcon>
-                <span className="w-full text-sm pt-[3px]">Schedule List</span>
-              </NavLink>
-            </li>
+
+            {role === "admin" && (
+              <>
+                <li className="my-2 md:my-0">
+                  <NavLink
+                    to="/dashboard/schedule-list"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-fuchsia-500 font-bold flex py-1 md:py-3 pl-1 no-underline hover:text-fuchsia-500 items-center"
+                        : "flex py-1 md:py-3 pl-1 no-underline hover:text-fuchsia-500 items-center"
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faClipboardList}
+                      className="mr-3"
+                    ></FontAwesomeIcon>
+                    <span className="w-full text-sm pt-[3px]">
+                      Schedule List
+                    </span>
+                  </NavLink>
+                </li>
+              </>
+            )}
+
             <li className="my-2 md:my-0">
               <NavLink
                 to="/dashboard/upcoming-events"
@@ -93,22 +106,26 @@ const DashboardLayout = () => {
                 </span>
               </NavLink>
             </li>
-            <li className="my-2 md:my-0 ">
-              <NavLink
-                to="/dashboard/bookings"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-fuchsia-500 font-bold flex py-1 md:py-3 pl-1 align-middle no-underline hover:text-fuchsia-500 items-center"
-                    : "flex py-1 md:py-3 pl-1 no-underline hover:text-fuchsia-500 items-center"
-                }
-              >
-                <FontAwesomeIcon
-                  icon={faCalendarCheck}
-                  className="mr-3"
-                ></FontAwesomeIcon>
-                <span className="w-full text-sm pt-[3px]">My Bookings</span>
-              </NavLink>
-            </li>
+
+            {role === "user" && (
+              <li className="my-2 md:my-0 ">
+                <NavLink
+                  to="/dashboard/bookings"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-fuchsia-500 font-bold flex py-1 md:py-3 pl-1 align-middle no-underline hover:text-fuchsia-500 items-center"
+                      : "flex py-1 md:py-3 pl-1 no-underline hover:text-fuchsia-500 items-center"
+                  }
+                >
+                  <FontAwesomeIcon
+                    icon={faCalendarCheck}
+                    className="mr-3"
+                  ></FontAwesomeIcon>
+                  <span className="w-full text-sm pt-[3px]">My Bookings</span>
+                </NavLink>
+              </li>
+            )}
+
             <li className="my-2 md:my-0">
               <NavLink
                 to="/dashboard/calendar"
@@ -125,22 +142,26 @@ const DashboardLayout = () => {
                 <span className="w-full text-sm pt-[3px]">Calendar</span>
               </NavLink>
             </li>
-            <li className="my-2 md:my-0">
-              <NavLink
-                to="/dashboard/users"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-fuchsia-500 font-bold flex py-1 md:py-3 pl-1 no-underline hover:text-fuchsia-500 items-center"
-                    : "flex py-1 md:py-3 pl-1 no-underline hover:text-fuchsia-500 items-center"
-                }
-              >
-                <FontAwesomeIcon
-                  icon={faUserFriends}
-                  className="mr-3"
-                ></FontAwesomeIcon>
-                <span className="w-full text-sm pt-[3px]">Users</span>
-              </NavLink>
-            </li>
+
+            {role === "admin" && (
+              <li className="my-2 md:my-0">
+                <NavLink
+                  to="/dashboard/users"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-fuchsia-500 font-bold flex py-1 md:py-3 pl-1 no-underline hover:text-fuchsia-500 items-center"
+                      : "flex py-1 md:py-3 pl-1 no-underline hover:text-fuchsia-500 items-center"
+                  }
+                >
+                  <FontAwesomeIcon
+                    icon={faUserFriends}
+                    className="mr-3"
+                  ></FontAwesomeIcon>
+                  <span className="w-full text-sm pt-[3px]">All Users</span>
+                </NavLink>
+              </li>
+            )}
+
             <li className="my-2 md:my-0">
               <NavLink
                 to="/dashboard/profile"
@@ -164,7 +185,7 @@ const DashboardLayout = () => {
       <div id="rightside" className="w-full">
         <div
           id="header"
-          class="h-20 bg-gray-200 border-b-1 flex justify-end px-4 gap-4 items-center"
+          className="h-20 bg-gray-200 border-b-1 flex justify-end px-4 gap-4 items-center"
         >
           <div className="relative avatar">
             <img
@@ -174,35 +195,34 @@ const DashboardLayout = () => {
             />
             <div
               id="userMenu"
-              class="bg-white nunito rounded shadow-md absolute mt-16 top-0 right-0 min-w-full"
+              className="bg-white nunito rounded shadow-md absolute mt-16 top-0 right-0"
             >
-              <ul class="list-reset">
+              <ul className="list-reset w-32">
                 <li>
-                  <a
-                    href="/"
-                    class="px-4 py-2 block text-gray-900 hover:bg-fuchsia-500 hover:text-white no-underline hover:no-underline"
+                  <Link
+                    to="/"
+                    className="px-4 py-2 block text-gray-900 hover:bg-fuchsia-500 hover:text-white no-underline hover:no-underline"
                   >
                     My account
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="/"
-                    class="px-4 py-2 block text-gray-900 hover:bg-fuchsia-500 hover:text-white no-underline hover:no-underline"
+                  <Link
+                    to="/"
+                    className="px-4 py-2 block text-gray-900 hover:bg-fuchsia-500 hover:text-white no-underline hover:no-underline"
                   >
-                    Notifications
-                  </a>
+                    Settings
+                  </Link>
                 </li>
                 <li>
-                  <hr class="border-t mx-2 border-gray-400" />
+                  <hr className="border-t mx-2 border-gray-400" />
                 </li>
                 <li onClick={logout}>
-                  <a
-                    href="/"
-                    class="px-4 py-2 block text-gray-900 hover:bg-fuchsia-500 hover:text-white no-underline hover:no-underline"
+                  <button
+                    className="px-4 py-2 block text-gray-900 hover:bg-fuchsia-500 hover:text-white no-underline hover:no-underline w-full text-left"
                   >
                     Logout
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>
