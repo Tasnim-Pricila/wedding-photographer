@@ -4,6 +4,7 @@ import auth from "../../firebase.init"
 
 const initialState = {
     id: '',
+    name: "",
     email: '',
     role: '',
     isLoading: true,
@@ -27,8 +28,8 @@ export const googleLogin = createAsyncThunk("auth/googleLogin",
     async () => {
         const googleProvider = new GoogleAuthProvider();
         const data = await signInWithPopup(auth, googleProvider)
-        // console.log(data);
-        return data.user.email;
+        console.log(data);
+        return data;
     })
 
 export const facebookLogin = createAsyncThunk("auth/facebookLogin",
@@ -52,6 +53,9 @@ const authSlice = createSlice({
     reducers: {
         logout: (state) => {
             state.email = ""
+            state.name = ""
+            state.role = ""
+            state.id = ""
         },
         setUser: (state, action) => {
             state.email = action.payload;
@@ -104,7 +108,8 @@ const authSlice = createSlice({
             })
             .addCase(googleLogin.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.email = action.payload;
+                state.email = action.payload.user.email;
+                state.name = action.payload.user.displayName;
                 state.isError = false;
                 state.error = '';
             })
@@ -139,6 +144,7 @@ const authSlice = createSlice({
             .addCase(getUser.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.email = action.payload.data.email;
+                state.name = action.payload.data.name;
                 state.role = action.payload.data.role;
                 state.id = action.payload.data._id;
                 state.isError = false;

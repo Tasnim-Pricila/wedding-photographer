@@ -42,6 +42,7 @@ const Banner = () => {
     }, app);
     return () => ctx.revert();
   }, []);
+  
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
