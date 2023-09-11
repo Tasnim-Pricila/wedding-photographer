@@ -35,7 +35,7 @@ const Header = () => {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              isActive ? "text-fuchsia-700 font-bold" : ""
+              isActive ? "text-fuchsia-700 font-bold text-xs md:text-base" : "text-xs md:text-base"
             }
           >
             Home
@@ -53,8 +53,8 @@ const Header = () => {
             <NavLink
               to="/signup"
               className={({ isActive }) =>
-                isActive ? "text-fuchsia-700 font-bold" : ""
-              }
+              isActive ? "text-fuchsia-700 font-bold text-xs md:text-base" : "text-xs md:text-base"
+            }
             >
               Signup
             </NavLink>
@@ -63,14 +63,14 @@ const Header = () => {
               <NavLink
                 to="/dashboard/home"
                 className={({ isActive }) =>
-                  isActive ? "text-fuchsia-700 font-bold" : ""
-                }
+                isActive ? "text-fuchsia-700 font-bold text-xs md:text-base" : "text-xs md:text-base"
+              }
               >
                 Dashboard
               </NavLink>
               <button
                 onClick={logout}
-                className="uppercase border border-fuchsia-600 px-2 py-2 rounded-lg hover:bg-fuchsia-500 hover:text-white hover:transition hover:duration-500 font-semibold group"
+                className="uppercase border border-fuchsia-600 px-2 py-2 rounded-lg hover:bg-fuchsia-500 hover:text-white hover:transition hover:duration-500 font-semibold group text-xs md:text-base"
               >
                 Logout &nbsp;
                 <FontAwesomeIcon

@@ -12,9 +12,9 @@ import moment from "moment";
 const Bookings = () => {
   const { id: userId } = useSelector((state) => state.auth);
   const { data } = useGetBookingByUserIdQuery(userId);
-  
+
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4">
       {data?.data?.map((data) => (
         <div class="rounded overflow-hidden shadow-lg px-4 py-4 bg-slate-300 pb-10 border-b-8 border-t-2 border-l-2 border-r-2 border-b-purple-500 hover:border-t-2 hover:border-l-2 hover:border-r-2 hover:border-purple-500 hover:duration-1000">
           <div className="flex justify-between items-center gap-4 h-20">

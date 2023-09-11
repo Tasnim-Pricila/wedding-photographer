@@ -12,56 +12,58 @@ const Packages = () => {
   gsap.registerPlugin(ScrollTrigger);
 
   useEffect(() => {
-    gsap.set(cardRef.current, {
-      opacity: 0,
-    });
-    ScrollTrigger.create({
-      trigger: app.current,
-      // markers: true,
-      start: "top 60%",
-      end: "center 10%",
-      scrub: 1,
-      onEnter: () => {
-        gsap.fromTo(
-          cardRef.current,
-          {
-            y: 100,
+    if (window.innerWidth > 768) {
+      gsap.set(cardRef.current, {
+        opacity: 0,
+      });
+      ScrollTrigger.create({
+        trigger: app.current,
+        // markers: true,
+        start: "top 60%" ,
+        end: "center 10%",
+        scrub: 1,
+        onEnter: () => {
+          gsap.fromTo(
+            cardRef.current,
+            {
+              y: 100,
+              opacity: 0,
+            },
+            {
+              y: 0,
+              duration: 1,
+              opacity: 1,
+            }
+          );
+        },
+        onLeave: () => {
+          gsap.to(cardRef.current, {
+            y: -100,
+            duration: 1,
             opacity: 0,
-          },
-          {
+          });
+        },
+        onEnterBack: () => {
+          gsap.to(cardRef.current, {
             y: 0,
             duration: 1,
             opacity: 1,
-          }
-        );
-      },
-      onLeave: () => {
-        gsap.to(cardRef.current, {
-          y: -100,
-          duration: 1,
-          opacity: 0,
-        });
-      },
-      onEnterBack: () => {
-        gsap.to(cardRef.current, {
-          y: 0,
-          duration: 1,
-          opacity: 1,
-        });
-      },
-      onLeaveBack: () => {
-        gsap.to(cardRef.current, {
-          y: 100,
-          duration: 1,
-          opacity: 0,
-        });
-      },
-    });
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(cardRef.current, {
+            y: 100,
+            duration: 1,
+            opacity: 0,
+          });
+        },
+      });
+    }
   }, []);
 
   return (
     <div ref={app}>
-      <div className="services my-12 px-12 pt-8">
+      <div className="services my-12 px-4 md:px-12 pt-8">
         <h2 className="text-3xl text-center uppercase tracking-wider">
           My Services
         </h2>

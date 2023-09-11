@@ -2,17 +2,73 @@ import React from "react";
 import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect } from "react";
+import { useRef } from "react";
 
 const Package = ({ packages }) => {
+  const packageRef = useRef();
   const { img, title, description, price, _id } = packages;
   const navigate = useNavigate();
   const handleDetails = () => {
     navigate(`/details/${_id}`);
     window.scroll("top", 0);
   };
+  gsap.registerPlugin(ScrollTrigger);
+
+  useEffect(() => {
+    if (window.innerWidth <= 768) {
+      gsap.set(packageRef.current, {
+        opacity: 0,
+      });
+      ScrollTrigger.create({
+        trigger: packageRef.current,
+        // markers: true,
+        start: "top 60%",
+        end: "center 10%",
+        scrub: 1,
+        onEnter: () => {
+          gsap.fromTo(
+            packageRef.current,
+            {
+              y: 100,
+              opacity: 0,
+            },
+            {
+              y: 0,
+              duration: 1,
+              opacity: 1,
+            }
+          );
+        },
+        onLeave: () => {
+          gsap.to(packageRef.current, {
+            y: -100,
+            duration: 1,
+            opacity: 0,
+          });
+        },
+        onEnterBack: () => {
+          gsap.to(packageRef.current, {
+            y: 0,
+            duration: 1,
+            opacity: 1,
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(packageRef.current, {
+            y: 100,
+            duration: 1,
+            opacity: 0,
+          });
+        },
+      });
+    }
+  }, []);
 
   return (
-    <div>
+    <div ref={packageRef}>
       <div className="flex flex-col text-center shadow-sm shadow-fuchsia-200 service">
         <img
           src={img}
