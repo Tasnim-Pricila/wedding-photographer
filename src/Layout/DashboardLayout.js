@@ -195,7 +195,7 @@ const DashboardLayout = () => {
             />
             <div
               id="userMenu"
-              className="bg-white nunito rounded shadow-md absolute mt-16 top-0 right-0"
+              className="bg-white nunito rounded shadow-md absolute mt-16 top-0 right-0 z-[99]"
             >
               <ul className="list-reset w-32">
                 <li>
