@@ -7,6 +7,8 @@ import { useGetPackageByIdQuery } from "../../features/package/packageApi";
 import Loading from "../Loading/Loading";
 
 const Checkout = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { packageId } = useParams();
   const { data, isLoading: getPackageIdLoading } =
     useGetPackageByIdQuery(packageId);
@@ -14,22 +16,6 @@ const Checkout = () => {
     useCreateBookingMutation();
   const { id: userId, email, name } = useSelector((state) => state.auth);
   const found = data?.data;
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success("Booking Successfull!!!.Thank You For The Booking", {
-        theme: "dark",
-      });
-      navigate("/dashboard/bookings");
-    }
-    if (isError) {
-      toast.success(error?.data?.error, {
-        theme: "dark",
-      });
-    }
-  }, [isSuccess, isError, error, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,6 +28,23 @@ const Checkout = () => {
     };
     createBooking(booking);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setTimeout(() => {
+        navigate("/dashboard/bookings");
+
+      }, 2000)
+      toast.success("Booking Successfull!!!.Thank You For The Booking", {
+        theme: "dark",
+      });
+    }
+    if (isError) {
+      toast.success(error?.data?.error, {
+        theme: "dark",
+      });
+    }
+  }, [isSuccess, isError, error, navigate]);
 
   if (isLoading || getPackageIdLoading) {
     return <Loading />;
